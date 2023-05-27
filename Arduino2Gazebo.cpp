@@ -33,7 +33,7 @@ void arduinoThread()
         count--;
         my_serial.flushInput();
         std::string response = my_serial.read(6);
-        std::cout << "Arduino: " << response;
+        std::cout << "Arduino: " << response << std::endl;
       //  std::cout << "Hellloooo?" << response;
        // std::cout<< "" << typeid(response).name();
       //  MyFile << response;
@@ -45,7 +45,7 @@ void arduinoThread()
 		//std::string s = "213.1415";    
 		ss << response;
 		ss >> f;  //f now contains the converted string into a double  
-		std::cout << 5*f << std::endl; 
+		std::cout << "5*f = " << 5*f << std::endl; 
 		velocity = f;
     }
 
@@ -62,7 +62,7 @@ void gazeboThread() {
 	// Send a string to client
 	//std::string send_str = "Hello prease";
     while(true) {
-        sleep(0.5);
+        sleep(.5);
         std::string send_str = std::to_string(velocity);
         server->socket_send(send_str);
     }
