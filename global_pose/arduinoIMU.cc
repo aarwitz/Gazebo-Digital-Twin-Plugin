@@ -4,7 +4,7 @@
 #include <gazebo/common/common.hh>
 #include <ignition/math/Vector3.hh>
 #include "socket.hpp"
-
+#include <ignition/math.hh>
 bool simFinished = false;
 
 namespace gazebo
@@ -39,21 +39,27 @@ namespace gazebo
 	std::stringstream ss(output);
 	std::vector<float> rpy;
 	std::string s;
-	std::cout << "Output: " << std::endl;
+	std::cout << "Output: ";
     while (getline(ss, s, ' ')) {
-      std::cout << s << "   ";
-      rpy.push_back(std::stof(s));
+   //   std::cout << s << "   ";
+      rpy.push_back(std::stod(s));
     }
-    
+    for (int i=0;i<=3;i++) {
+    	std::cout << i << ": ";
+    	std::cout << rpy[i];
+    	std::cout << " "; }
+	std::cout << "\n";
+     ignition::math::Pose3d pose(0.0, 0.0, 5.0, rpy[0], rpy[1], rpy[2]);
+	 this->model->SetWorldPose(pose);
     
     	//std::cout << rpy[0] << " " << rpy[1] << " " << rpy[2];
-      
+     /* 
      ignition::math::Vector3d angularvel_vec(0,0,.2);
      ignition::math::Vector3d linearvel_vec(rpy[0],rpy[1],rpy[2]);
       
       this->model->SetAngularVel(angularvel_vec);
       this->model->SetLinearVel(linearvel_vec);
-      
+      */
     }
 
     // Pointer to the model
