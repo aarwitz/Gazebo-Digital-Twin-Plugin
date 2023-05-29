@@ -1,8 +1,9 @@
 
 git clone https://github.com/aarwitz/Gazebo-Digital-Twin-Plugin.git
+
 In Arduino, run the code contained in SerialCom/src/ArduinoCode.txt
 
-First, build the SerialCom code to start streaming from Arduino serial:
+Build the SerialCom code to start streaming waypoints from Arduino to TCP/IP:
 cd SerialCom
 mkdir build
 cd build
