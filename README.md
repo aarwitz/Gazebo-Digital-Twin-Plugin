@@ -3,7 +3,7 @@ This is a .... Hz....
 - Arduino
 - BNO055 9-AXis IMU
 
-![Alt Text](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDkyODczOGI3YWY2MWZiZjI5NDg4M2JkZGVjYzE2YmM0YzA5OTQzYiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/Z4KxIylF6DH9hRoQEv/giphy.gif)
+![Alt Text](https://media.giphy.com/media/Z4KxIylF6DH9hRoQEv/giphy.gif)
 
 ***Add instructions up here for building client/server
 
