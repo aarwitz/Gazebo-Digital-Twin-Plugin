@@ -16,5 +16,5 @@ list(APPEND serial_SRCS third-party/src/impl/unix.cc)
 add_library(serial ${serial_SRCS})
 target_link_libraries(serial rt)
 
-add_executable(ArduinoSerial src/Arduino2File.cpp)
+add_executable(ArduinoSerial src/Arduino2Gazebo.cpp)
 target_link_libraries(ArduinoSerial serial server)

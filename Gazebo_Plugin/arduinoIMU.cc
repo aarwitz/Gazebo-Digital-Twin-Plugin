@@ -45,9 +45,9 @@ namespace gazebo
 		double pitch_w = std::stod(v[1]);
 		double yaw_w = std::stod(v[2]);
 		// Print out values
-		std::cout << "roll: " << roll_b << " pitch: " << pitch_b << " yaw: " << yaw_b << std::endl;
+		std::cout << "roll: " << roll_w << " pitch: " << pitch_w << " yaw: " << yaw_w << std::endl;
 		// Set the RPY of the Gazebo model
-		ignition::math::Pose3d pose(0.0, 0.0, 5.0, roll_b*.01745, pitch_b*.01745, yaw_b*.01745);
+		ignition::math::Pose3d pose(0.0, 0.0, 5.0, roll_w*.01745, pitch_w*.01745, yaw_w*.01745);
 		this->model->SetWorldPose(pose);
     }
 
