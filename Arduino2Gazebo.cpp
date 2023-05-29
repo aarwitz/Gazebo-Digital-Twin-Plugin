@@ -4,75 +4,78 @@
 #include <fstream>
 #include "socket.hpp"
 
+std::string orientation{"000.00,000.00,000.00"};
 
-float velocity = 2.0;
 
-bool rcv_msg = false;
+size_t checkNewLine(std::string str) {
+	size_t pos = std::string::npos; // Initialize position to a special value indicating not found
+
+    for (size_t i = 0; i < str.length(); ++i) {
+        if (str[i] == '\n') {
+            pos = i; // Store the position of the newline character
+            break;  // Exit the loop once the newline character is found
+        }
+    }
+
+    if (pos != std::string::npos) {
+  //      std::cout << "Newline found at position " << pos << std::endl;
+    } else {
+   //     std::cout << "Newline not found" << std::endl;
+    }
+	return pos;
+}
+
 
 void arduinoThread()
 {
-    serial::Serial my_serial("/dev/ttyACM0", 19200, 			serial::Timeout::simpleTimeout(3000));
+    serial::Serial my_serial("/dev/ttyACM1", 19200, serial::Timeout::simpleTimeout(3000));
 
     if (my_serial.isOpen())
     {
-        std::cout << "Port opened succesfully" << std::endl;
+        std::cout << "Arduino port opened succesfully" << std::endl;
     }
     else
     {
-        std::cout << "Port failed to open" << std::endl;
+        std::cout << "Arduino port failed to open" << std::endl;
     }
-   // my_serial.flushOutput();
-
-    // Creating a file to write Arduino data into
-    //std::ofstream MyFile("../ArduinoData.txt");
 	
-
-  //  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    int count = 100000000;
-    while (count>0) {
-        count--;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    while (true) {
+    	//std::this_thread::sleep_for(std::chrono::milliseconds(500));
         my_serial.flushInput();
-        std::string response = my_serial.read(6);
-        std::cout << "Arduino: " << response << std::endl;
-      //  std::cout << "Hellloooo?" << response;
-       // std::cout<< "" << typeid(response).name();
-      //  MyFile << response;
-       // velocity = std::stof(response);
-        // To convert into a float:
-        // std::cout << std::stof(response) * 5 << std::endl;
-        double f = 0.0;    
-		std::stringstream ss;
-		//std::string s = "213.1415";    
-		ss << response;
-		ss >> f;  //f now contains the converted string into a double  
-		std::cout << "5*f = " << 5*f << std::endl; 
-		velocity = f;
+        std::string str_test = " ";
+        while (str_test[0]!='\n') {
+        	for (size_t i = 0; i < str_test.length(); ++i) {
+        		if (str_test[i] == '\n') {
+        			break;
+    			}
+    			else {
+    				str_test = my_serial.read();
+    				//std::cout << str_test[0];
+    			}
+			}
+        }
+        std::string response = my_serial.read(20);
+        orientation = response;
+        size_t newline_pos = checkNewLine(orientation);
+        if (newline_pos != std::string::npos) {
+		    orientation.erase(newline_pos,1);// Remove the newline character at position pos
+    	}
+        std::cout << "Orientation: " << orientation << std::endl;
     }
-
-    //MyFile.close();
 }
 
 void gazeboThread() {
-    std::cout << "Starting Thread 1\n";
-	
 	// Connect to client on port 12345
 	Socket::Ptr server = std::make_shared<Socket>("127.0.0.1",12345);
 	server->socket_connect();
-
-	// Send a string to client
-	//std::string send_str = "Hello prease";
+	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     while(true) {
-        sleep(.5);
-        std::string send_str = std::to_string(velocity);
-        server->socket_send(send_str);
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    	std::cout << "Arduino: " << orientation << std::endl;
+        server->socket_send(orientation);
     }
-	
-	// Receive a string from client
-	//std::string output = server->socket_receive();
-	//std::cout << "Client>" << output << std::endl;
-
 }
-
 
 
 int main() {
