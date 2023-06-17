@@ -1,6 +1,6 @@
 Hardware: Arduino, Adafruit BNO055 9-Axis IMU
 
-![Alt Text](https://media.giphy.com/media/Z4KxIylF6DH9hRoQEv/giphy.gif)
+<img src="https://github.com/aarwitz/Gazebo-Digital-Twin-Plugin/blob/main/Quad.gif" width="600" height="1066" />
 
 ***Add instructions up here for building client/server
 
