@@ -1,7 +1,4 @@
-This is a .... Hz....
-
-- Arduino
-- BNO055 9-AXis IMU
+Hardware: Arduino, Adafruit BNO055 9-Axis IMU
 
 ![Alt Text](https://media.giphy.com/media/Z4KxIylF6DH9hRoQEv/giphy.gif)
 
