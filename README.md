@@ -7,7 +7,7 @@ Hardware: Arduino, Adafruit BNO055 9-Axis IMU
 ```
 git clone https://github.com/aarwitz/Gazebo-Digital-Twin-Plugin.git
 ```
-In Arduino, run the code contained in SerialCom/src/ArduinoCode.txt
+In Arduino, run the code contained in SerialCom/src/ArduinoCode.ino
 
 Build the SerialCom code to start streaming pose coordinates from Arduino to TCP/IP:
 ```
